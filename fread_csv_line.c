@@ -1,7 +1,6 @@
+#include "csv.h"
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
-#include "csv.h"
 
 #define READ_BLOCK_SIZE 65536
 #define QUICK_GETC( ch, fp )\
