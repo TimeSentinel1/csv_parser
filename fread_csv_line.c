@@ -1,7 +1,7 @@
 #include "csv.h"
 #include <stdlib.h>
 #include <string.h>
-
+StrDup(const char *src);
 #define READ_BLOCK_SIZE 65536
 #define QUICK_GETC( ch, fp )\
 do\
