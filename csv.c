@@ -1,11 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
-char *StrDup(const char *src) {
-    char *dst = malloc(strlen (src) + 1);  
-    if (dst == NULL) return NULL;         
-    strcpy(dst, src);                      
-    return dst;                            
-}
+#include "csv.h"
+
 void free_csv_line( char **parsed ) {
     char **ptr;
 
@@ -111,7 +107,7 @@ char **parse_csv( const char *line ) {
                 fEnd = 1;
             case ',':
                 *tptr = '\0';
-                *bptr = StrDup( tmp );
+                *bptr = strdup( tmp );
 
                 if ( !*bptr ) {
                     for ( bptr--; bptr >= buf; bptr-- ) {

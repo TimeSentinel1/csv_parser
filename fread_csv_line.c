@@ -1,7 +1,7 @@
 #include "csv.h"
 #include <stdlib.h>
-#include <string.h>
-char* StrDup(const char *src);
+
+
 #define READ_BLOCK_SIZE 65536
 #define QUICK_GETC( ch, fp )\
 do\
@@ -102,5 +102,5 @@ char *fread_csv_line(FILE *fp, int max_line_size, int *done, int *err) {
 
     *done = !ch;
     *bptr = '\0';
-    return StrDup(buf);
+    return strdup(buf);
 }
