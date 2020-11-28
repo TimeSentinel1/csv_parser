@@ -102,5 +102,5 @@ char *fread_csv_line(FILE *fp, int max_line_size, int *done, int *err) {
 
     *done = !ch;
     *bptr = '\0';
-    return strdup(buf);
+    return Stringdup(buf);
 }

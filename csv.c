@@ -107,7 +107,7 @@ char **parse_csv( const char *line ) {
                 fEnd = 1;
             case ',':
                 *tptr = '\0';
-                *bptr = strdup( tmp );
+                *bptr = Stringdup( tmp );
 
                 if ( !*bptr ) {
                     for ( bptr--; bptr >= buf; bptr-- ) {
