@@ -1,6 +1,6 @@
-#include <stdlib.h>
-#include <string.h>
 #include "csv.h"
+#include <string.h>
+
 
 void free_csv_line( char **parsed ) {
     char **ptr;
@@ -107,7 +107,7 @@ char **parse_csv( const char *line ) {
                 fEnd = 1;
             case ',':
                 *tptr = '\0';
-                *bptr = Stringdup( tmp );
+                *bptr = StringDup( tmp );
 
                 if ( !*bptr ) {
                     for ( bptr--; bptr >= buf; bptr-- ) {
