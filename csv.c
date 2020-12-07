@@ -12,7 +12,7 @@ void free_csv_line( char **parsed ) {
     free( parsed );
 }
 
-static int count_fields( const char *line, const char ch) {
+static int count_fields( const char *line ) {
     const char *ptr;
     int cnt, fQuote;
 
@@ -27,18 +27,17 @@ static int count_fields( const char *line, const char ch) {
             }
             continue;
         }
-        if(*ptr == '\"')
-        {
-             fQuote = 1;
-            continue;
-        } else if(*ptr == ch){
-            cnt++;
-            continue;
-        } else {
-            continue;
-        }
 
-   
+        switch( *ptr ) {
+            case '\"':
+                fQuote = 1;
+                continue;
+            case ',':
+                cnt++;
+                continue;
+            default:
+                continue;
+        }
     }
 
     if ( fQuote ) {
@@ -53,12 +52,12 @@ static int count_fields( const char *line, const char ch) {
  *  which are escaped by "double quotes", extract a NULL-terminated
  *  array of strings, one for every cell in the row.
  */
-char **parse_csv( const char *line,const char ch) {
+char **parse_csv( const char *line ) {
     char **buf, **bptr, *tmp, *tptr;
     const char *ptr;
     int fieldcnt, fQuote, fEnd;
 
-    fieldcnt = count_fields( line,ch);
+    fieldcnt = count_fields( line );
 
     if ( fieldcnt == -1 ) {
         return NULL;
@@ -99,16 +98,15 @@ char **parse_csv( const char *line,const char ch) {
 
             continue;
         }
-            if(*ptr == '\"')
-            {
+
+        switch( *ptr ) {
+            case '\"':
                 fQuote = 1;
                 continue;
-            } else if (*ptr == '\0')
-            {
+            case '\0':
                 fEnd = 1;
-            } else if(*ptr == ch)
-            {
-                     *tptr = '\0';
+            case ',':
+                *tptr = '\0';
                 *bptr = StringDup( tmp );
 
                 if ( !*bptr ) {
@@ -125,16 +123,15 @@ char **parse_csv( const char *line,const char ch) {
                 tptr = tmp;
 
                 if ( fEnd ) {
-
+                  break;
                 } else {
                   continue;
                 }
-            } else {
-                 *tptr++ = *ptr;
-                continue;
-            }
 
-            
+            default:
+                *tptr++ = *ptr;
+                continue;
+        }
 
         if ( fEnd ) {
             break;
