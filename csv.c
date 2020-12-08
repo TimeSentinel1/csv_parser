@@ -32,7 +32,7 @@ static int count_fields( const char *line ) {
             case '\"':
                 fQuote = 1;
                 continue;
-            case ',':
+            case ';':
                 cnt++;
                 continue;
             default:
@@ -105,7 +105,7 @@ char **parse_csv( const char *line ) {
                 continue;
             case '\0':
                 fEnd = 1;
-            case ',':
+            case ';':
                 *tptr = '\0';
                 *bptr = StringDup( tmp );
 
